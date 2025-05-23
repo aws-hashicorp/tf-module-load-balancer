@@ -1,3 +1,4 @@
+# --- Load Balancer Variables ---
 variable "load_balancer_type" {
   description = "The type of the load balancer"
   type        = string
@@ -20,8 +21,8 @@ variable "subnets" {
   type        = list(string)
 }
 
-variable "sg_loadbalancer_id" {
-  description = "The security group for the load balancer"
+variable "vpc_id" {
+  description = "The VPC ID"
   type        = string
 }
 
@@ -37,6 +38,7 @@ variable "tags" {
   default     = {}
 }
 
+# --- Listener Variables ---
 variable "create_default_listener" {
   description = "Whether to create a default listener"
   type        = bool
@@ -53,4 +55,28 @@ variable "listener_port" {
   description = "The port for the listener"
   type        = number
   default     = 80
+}
+
+# --- Security Group Variables ---
+variable "security_group_name" {
+  description = "The name of the security group"
+  type        = string
+}
+
+variable "allowed_cidrs" {
+  description = "The CIDR blocks to allow"
+  type        = list(string)
+  default     = []
+}
+
+variable "allowed_security_groups" {
+  description = "The security groups to allow"
+  type        = list(string)
+  default     = []
+}
+
+variable "allowed_prefix_list_ids" {
+  description = "The prefix list IDs to allow"
+  type        = list(string)
+  default     = []
 }
