@@ -48,7 +48,7 @@ variable "create_default_listener" {
 variable "listener_protocol" {
   description = "The protocol for the listener"
   type        = string
-  default     = "TCP"
+  default     = "HTTP"
 }
 
 variable "listener_port" {
@@ -79,4 +79,22 @@ variable "allowed_prefix_list_ids" {
   description = "The prefix list IDs to allow"
   type        = list(string)
   default     = []
+}
+
+variable "sg_listener_port_from" {
+  description = "The starting port for the security group listener"
+  type        = number
+  default     = 80
+}
+
+variable "sg_listener_port_to" {
+  description = "The ending port for the security group listener"
+  type        = number
+  default     = 80
+}
+
+variable "sg_listener_protocol" {
+  description = "The protocol for the security group listener"
+  type        = string
+  default     = "tcp"
 }

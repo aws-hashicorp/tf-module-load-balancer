@@ -48,9 +48,9 @@ resource "aws_security_group" "sg_loadbalancer" {
   dynamic "ingress" {
     for_each = var.allowed_cidrs != null && length(var.allowed_cidrs) > 0 ? [1] : []
     content {
-      from_port   = var.listener_port
-      to_port     = var.listener_port
-      protocol    = var.listener_protocol
+      from_port   = var.sg_listener_port_from
+      to_port     = var.sg_listener_port_to
+      protocol    = var.sg_listener_protocol
       cidr_blocks = var.allowed_cidrs
     }
   }
@@ -58,9 +58,9 @@ resource "aws_security_group" "sg_loadbalancer" {
   dynamic "ingress" {
     for_each = var.allowed_security_groups != null && length(var.allowed_security_groups) > 0 ? [1] : []
     content {
-      from_port       = var.listener_port
-      to_port         = var.listener_port
-      protocol        = var.listener_protocol
+      from_port       = var.sg_listener_port_from
+      to_port         = var.sg_listener_port_to
+      protocol        = var.sg_listener_protocol
       security_groups = var.allowed_security_groups
       description     = "Allow from security groups"
     }
@@ -69,9 +69,9 @@ resource "aws_security_group" "sg_loadbalancer" {
   dynamic "ingress" {
     for_each = var.allowed_prefix_list_ids != null && length(var.allowed_prefix_list_ids) > 0 ? [1] : []
     content {
-      from_port       = var.listener_port
-      to_port         = var.listener_port
-      protocol        = var.listener_protocol
+      from_port       = var.sg_listener_port_from
+      to_port         = var.sg_listener_port_to
+      protocol        = var.sg_listener_protocol
       prefix_list_ids = var.allowed_prefix_list_ids
       description     = "Allow from prefix lists"
     }
