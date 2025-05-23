@@ -48,7 +48,7 @@ variable "create_default_listener" {
 variable "listener_protocol" {
   description = "The protocol for the listener"
   type        = string
-  default     = "HTTP"
+  default     = "TCP"
 }
 
 variable "listener_port" {
