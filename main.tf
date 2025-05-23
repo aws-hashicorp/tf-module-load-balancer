@@ -7,7 +7,12 @@ resource "aws_lb" "load_balancer" {
   security_groups                  = [aws_security_group.sg_loadbalancer.id]
   enable_cross_zone_load_balancing = var.cross_zone
 
-  tags = merge(var.tags, { Name = var.load_balancer_name })
+  tags = merge(
+    var.tags,
+    {
+      Name = var.load_balancer_type == "application" ? "alb-${var.load_balancer_name}" : "nlb-${var.load_balancer_name}"
+    }
+  )
 
   depends_on = [
     var.subnets
