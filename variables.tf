@@ -109,6 +109,7 @@ variable "create_vpc_link" {
 variable "vpc_link_name" {
   description = "The name of the VPC link"
   type        = string
+  default     = "vpc-link"
 }
 
 variable "vpc_link_description" {
