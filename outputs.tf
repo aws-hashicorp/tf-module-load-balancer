@@ -16,3 +16,11 @@ output "load_balancer_dns_name" {
 output "http_listener_arn" {
   value = one(aws_lb_listener.http_listener[*].arn)
 }
+
+output "vpc_link_id" {
+  value = aws_apigatewayv2_vpc_link.api_gateway_vpc_link[0].id
+}
+
+output "vpc_link_arn" {
+  value = aws_apigatewayv2_vpc_link.api_gateway_vpc_link[0].arn
+}
