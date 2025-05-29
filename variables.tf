@@ -98,3 +98,21 @@ variable "sg_listener_protocol" {
   type        = string
   default     = "tcp"
 }
+
+# --- VPC LINK VARIABLES ---
+variable "create_vpc_link" {
+  description = "Whether to create a VPC link"
+  type        = bool
+  default     = false
+}
+
+variable "vpc_link_name" {
+  description = "The name of the VPC link"
+  type        = string
+}
+
+variable "vpc_link_description" {
+  description = "The description of the VPC link"
+  type        = string
+  default     = "VPC Link for API Gateway"
+}
