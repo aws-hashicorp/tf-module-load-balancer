@@ -18,9 +18,9 @@ output "http_listener_arn" {
 }
 
 output "vpc_link_id" {
-  value = aws_apigatewayv2_vpc_link.api_gateway_vpc_link[0].id
+  value = one(aws_apigatewayv2_vpc_link.api_gateway_vpc_link[*].id)
 }
 
 output "vpc_link_arn" {
-  value = aws_apigatewayv2_vpc_link.api_gateway_vpc_link[0].arn
+  value = one(aws_apigatewayv2_vpc_link.api_gateway_vpc_link[*].arn)
 }
