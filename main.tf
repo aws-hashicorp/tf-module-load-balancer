@@ -102,4 +102,5 @@ resource "aws_api_gateway_vpc_link" "api_gateway_rest_vpc_link" {
   name        = "${var.vpc_link_name}-vpc-link"
   description = var.vpc_link_description
   target_arns = [aws_lb.load_balancer.arn]
+  tags        = merge(var.tags, { Name = "${var.vpc_link_name}-vpc-link" })
 }
