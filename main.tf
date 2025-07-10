@@ -87,11 +87,19 @@ resource "aws_security_group" "sg_loadbalancer" {
   tags = merge(var.tags, { Name = "${var.security_group_name}-sg" })
 }
 
-# VPC Link
+# VPC Link HTTP
 resource "aws_apigatewayv2_vpc_link" "api_gateway_vpc_link" {
   count              = var.create_vpc_link ? 1 : 0
   name               = "${var.vpc_link_name}-vpc-link"
   subnet_ids         = var.subnets
   security_group_ids = [aws_security_group.sg_loadbalancer.id]
   tags               = merge(var.tags, { Name = "${var.vpc_link_name}-vpc-link" })
+}
+
+# VPC Link REST
+resource "aws_api_gateway_vpc_link" "api_gateway_rest_vpc_link" {
+  count       = var.create_rest_vpc_link ? 1 : 0
+  name        = "${var.vpc_link_name}-vpc-link"
+  description = var.vpc_link_description
+  target_arns = [aws_lb.load_balancer.arn]
 }

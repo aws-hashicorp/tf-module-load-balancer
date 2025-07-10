@@ -24,3 +24,11 @@ output "vpc_link_id" {
 output "vpc_link_arn" {
   value = aws_apigatewayv2_vpc_link.api_gateway_vpc_link[0].arn
 }
+
+output "vpc_link_rest_id" {
+  value = aws_api_gateway_vpc_link.api_gateway_rest_vpc_link[0].id
+}
+
+output "vpc_link_rest_arn" {
+  value = aws_api_gateway_vpc_link.api_gateway_rest_vpc_link[0].arn
+}

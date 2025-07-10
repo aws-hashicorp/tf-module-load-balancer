@@ -106,6 +106,12 @@ variable "create_vpc_link" {
   default     = false
 }
 
+variable "create_rest_vpc_link" {
+  description = "Whether to create a VPC link"
+  type        = bool
+  default     = false
+}
+
 variable "vpc_link_name" {
   description = "The name of the VPC link"
   type        = string
