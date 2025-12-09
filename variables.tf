@@ -39,6 +39,24 @@ variable "tags" {
 }
 
 # --- Listener Variables ---
+variable "default_action" {
+  description = "The default action for the listener"
+  type        = map(string)
+  default     = {
+    type = "fixed-response"
+  }
+}
+
+variable "fixed_response" {
+  description = "The fixed response configuration for the listener"
+  type        = map(string)
+  default     = {
+    content_type = "application/json"
+    message_body = "{message:Successfully, status: 200}"
+    status_code  = "200"
+  }
+}
+
 variable "create_default_listener" {
   description = "Whether to create a default listener"
   type        = bool
