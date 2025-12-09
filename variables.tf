@@ -39,6 +39,12 @@ variable "tags" {
 }
 
 # --- Listener Variables ---
+variable "certificate_arn" {
+  description = "The ARN of the SSL certificate for HTTPS listener"
+  type        = string
+  default     = ""
+}
+
 variable "default_action" {
   description = "The default action for the listener"
   type = object({

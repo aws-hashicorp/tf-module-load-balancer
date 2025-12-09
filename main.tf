@@ -25,6 +25,7 @@ resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
   protocol          = var.listener_protocol
   port              = var.listener_port
+  certificate_arn  = var.listener_protocol == "HTTPS" ? var.certificate_arn : null
 
   dynamic "default_action" {
     for_each = var.default_action.type == "forward" ? [1] : []
