@@ -41,18 +41,27 @@ variable "tags" {
 # --- Listener Variables ---
 variable "default_action" {
   description = "The default action for the listener"
-  type        = map(string)
-  default     = {
+  type = object({
+    type             = string 
+    target_group_arn = optional(string)
+  })
+
+  default = {
     type = "fixed-response"
   }
 }
 
 variable "fixed_response" {
-  description = "The fixed response configuration for the listener"
-  type        = map(string)
-  default     = {
+  description = "Configuration for the fixed response of the listener"
+  type = object({
+    content_type = string
+    message_body = string
+    status_code  = string
+  })
+
+  default = {
     content_type = "application/json"
-    message_body = "{message:Successfully, status: 200}"
+    message_body = "{ \"message\": \"Successfully\", \"status\": 200 }"
     status_code  = "200"
   }
 }

@@ -26,19 +26,27 @@ resource "aws_lb_listener" "http_listener" {
   protocol          = var.listener_protocol
   port              = var.listener_port
 
-  dynamic "fixed_response" { 
-    for_each = (var.default_action != null && var.default_action["type"] == "fixed-response") ? [1] : []
+  dynamic "default_action" {
+    for_each = var.default_action.type == "forward" ? [1] : []
     content {
-      content_type = var.fixed_response["content_type"]
-      message_body = var.fixed_response["message_body"]
-      status_code  = var.fixed_response["status_code"]
-    } 
+      type             = "forward"
+      target_group_arn = var.default_action.target_group_arn
+    }
   }
 
-  default_action {
-    type = var.default_action != null ? var.default_action["type"] : "forward"
-    target_group_arn = var.default_action != null && var.default_action["type"] == "forward" ? var.default_action["target_group_arn"] : null
+  dynamic "default_action" {
+    for_each = var.default_action.type == "fixed-response" ? [1] : []
+    content {
+      type = "fixed-response"
+
+      fixed_response {
+        content_type = var.fixed_response.content_type
+        message_body = var.fixed_response.message_body
+        status_code  = var.fixed_response.status_code
+      }
+    }
   }
+
 
   depends_on = [
     aws_lb.load_balancer
