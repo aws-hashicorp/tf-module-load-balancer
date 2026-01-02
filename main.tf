@@ -7,6 +7,15 @@ resource "aws_lb" "load_balancer" {
   security_groups                  = [aws_security_group.sg_loadbalancer.id]
   enable_cross_zone_load_balancing = var.cross_zone
 
+  dynamic "load_balancer_attributes" {
+    for_each = var.load_balancer_type == "application" ? var.alb_attributes : {}
+
+    content {
+      key   = load_balancer_attributes.key
+      value = load_balancer_attributes.value
+    }
+  }
+
   tags = merge(
     var.tags,
     {
@@ -25,7 +34,7 @@ resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.load_balancer.arn
   protocol          = var.listener_protocol
   port              = var.listener_port
-  certificate_arn  = var.listener_protocol == "HTTPS" ? var.certificate_arn : null
+  certificate_arn   = contains(["HTTPS", "TLS"], var.listener_protocol) ? var.certificate_arn : null
 
   dynamic "default_action" {
     for_each = var.default_action.type == "forward" ? [1] : []
