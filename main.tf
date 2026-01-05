@@ -6,16 +6,7 @@ resource "aws_lb" "load_balancer" {
   subnets                          = var.subnets
   security_groups                  = [aws_security_group.sg_loadbalancer.id]
   enable_cross_zone_load_balancing = var.cross_zone
-
-  dynamic "load_balancer_attributes" {
-    for_each = var.load_balancer_type == "application" ? var.alb_attributes : {}
-
-    content {
-      key   = load_balancer_attributes.key
-      value = load_balancer_attributes.value
-    }
-  }
-
+  
   tags = merge(
     var.tags,
     {
