@@ -156,9 +156,3 @@ variable "vpc_link_description" {
   type        = string
   default     = "VPC Link for API Gateway"
 }
-
-variable "alb_attributes" {
-  description = "ALB attributes configuration"
-  type        = map(string)
-  default     = {}
-}
